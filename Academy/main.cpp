@@ -24,9 +24,9 @@ public:
 	{
 		cout << " Constructot\t" << this << endl;
 	}
-	~Human() { cout << "Hdestructor\t" << this << endl; }
+	virtual ~Human() { cout << "Hdestructor\t" << this << endl; }
 	     //Methods
-	void print()const
+	virtual void print()const
 	{
 		cout << last_name << " " << first_name << " " << age << "лет.\n";
 	}
@@ -117,14 +117,16 @@ public:
 	void print()const
 	{
 		Student::print();
-		cout << thesis_topic << endl;
+		cout << "Тема дипломного проекта:"<<thesis_topic << endl;
 	}
 };
 
+ //#define INHERITANCE
 
 void main()
 {
 	setlocale(LC_ALL, "");
+#ifdef INHERITANCE
 	Human human("Montana", "Antonio", 25);
 	human.print();
 	cout << delimetr << endl;
@@ -134,6 +136,25 @@ void main()
 	Teacher Professor("White", "Walter", 50, "Chemistry", 20);
 	Professor.print();
 	cout << delimetr << endl;
-	Graduate grad("Pinkman", "Jessy", 25, "Chemistry", "WW_220", 90, 95, "Investigation of gas hydrates obtained from emulsions water / decan, water/ oil");
+	Graduate grad("Shreder", "Jessy", 25, "Chemistry", "WW_220", 90, 95, "Investigation of gas hydrates obtained from emulsions water / decan, water/ oil");
 	grad.print();
+#endif // INHERITANCE
+	      // Polymorphism
+	Human* group[] =
+	{
+		new Student("Pinkman", "Jessy", 25, "Chemistry", "WW_220", 90, 95),
+		new Teacher("White", "Walter", 50, "Chemistry", 20),
+		new Graduate("Shreder", "Jessy", 25, "Chemistry", "WW_220", 90, 95, "Investigation of gas hydrates obtained from emulsions water / decan, water/ oil"),
+		new Student("Vercetti","Tomas",30,"Crminalistic","Vice",90,93),
+		new Teacher("Diaz","Ricardo",50,"Weapon distribution",15),
+		new Teacher("Enstein","Albert",143,"Astronomy",120)
+	};
+
+	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++) 
+	{ 
+		group[i]->print();
+		cout << delimetr << endl;
+	}
+	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++) { delete group[i]; }
+
 }
