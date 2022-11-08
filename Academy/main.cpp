@@ -31,6 +31,10 @@ public:
 		cout << last_name << " " << first_name << " " << age << "лет.\n";
 	}
 };
+std::ostream& operator<<(std::ostream& os, const Human& obj)
+{
+	return os << obj.get_last_name() << " " << obj.get_first_name() << " " << obj.get_age() << "y.o";
+}
 
 #define STUDENT_TAKE_PARAMETRS const std::string& speciality, const std::string& group, double rating, double attendance
 #define STUDENT_GIVE_PARAMETRS speciality,group,rating,attendance
@@ -68,6 +72,11 @@ public:
 		cout << speciality << " " << group << " " << rating << " " << attendance << endl;
 	}
 };
+ std::ostream& operator<<(std::ostream& os, const Student& obj)
+{
+	 os << (Human&)obj << " ";
+	 return os << obj.get_speciality() << " " << obj.get_group() << " " << obj.get_rating() << " " << obj.get_attendance() << "yers";
+}
 
 class Teacher:public Human
 {
@@ -98,6 +107,12 @@ public:
 		cout << speciality << " " << experiance << endl;
 	}
 };
+std::ostream& operator<<(std::ostream& os, const Teacher& obj)
+{
+	os << (Human&)obj << " ";
+	return os << obj.get_speciality() << " " << obj.get_experiance() << "yers";
+}
+
 class Graduate :public Student
 {
 	std::string thesis_topic;
@@ -120,6 +135,12 @@ public:
 		cout << "Тема дипломного проекта:"<<thesis_topic << endl;
 	}
 };
+std::ostream& operator<<(std::ostream& os, const Graduate& obj)
+{
+	os << (Student&)obj << " ";
+	return os << obj.get_thesis_topic()  << endl;
+}
+
 
  //#define INHERITANCE
 
@@ -152,7 +173,13 @@ void main()
 
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++) 
 	{ 
-		group[i]->print();
+		//group[i]->print();
+		//cout << *group[i] << endl;
+		cout << typeid(*group[i]).name() << endl;
+		if (typeid(*group[i]) == typeid(Student))cout << *dynamic_cast<Student*>(group[i]) << endl;
+		if (typeid(*group[i]) == typeid(Teacher))cout << *dynamic_cast<Teacher*>(group[i]) << endl;
+		if (typeid(*group[i]) == typeid(Graduate))cout << *dynamic_cast<Graduate*>(group[i]) << endl;
+		//
 		cout << delimetr << endl;
 	}
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++) { delete group[i]; }
