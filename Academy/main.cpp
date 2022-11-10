@@ -19,7 +19,7 @@ public:
 	const std::string& get_first_name()const { return first_name; }
 	unsigned int get_age()const { return age; }
 	 //constructors
-	Human( HUMAN_TAKE_PARAMETRS ) :
+	Human(const std::string& last_name, const std::string& first_name, unsigned int age) :
 		last_name(last_name), first_name(first_name), age(age)
 	{
 		cout << " Constructot\t" << this << endl;
@@ -74,8 +74,8 @@ public:
 };
  std::ostream& operator<<(std::ostream& os, const Student& obj)
 {
-	 os << (Human&)obj << " ";
-	 return os << obj.get_speciality() << " " << obj.get_group() << " " << obj.get_rating() << " " << obj.get_attendance() << "yers";
+	 return os << (Human&)obj << " "<< obj.get_speciality() << " " << obj.get_group()
+		 << " " << obj.get_rating() << " " << obj.get_attendance() << "yers";
 }
 
 class Teacher:public Human
@@ -109,8 +109,7 @@ public:
 };
 std::ostream& operator<<(std::ostream& os, const Teacher& obj)
 {
-	os << (Human&)obj << " ";
-	return os << obj.get_speciality() << " " << obj.get_experiance() << "yers";
+	return os << (Human&)obj << " " << obj.get_speciality() << " " << obj.get_experiance() << "yers";
 }
 
 class Graduate :public Student
@@ -137,8 +136,7 @@ public:
 };
 std::ostream& operator<<(std::ostream& os, const Graduate& obj)
 {
-	os << (Student&)obj << " ";
-	return os << obj.get_thesis_topic()  << endl;
+	return os<< (Student&)obj << " " << obj.get_thesis_topic()  << endl;
 }
 
 
