@@ -140,7 +140,9 @@ std::ostream& operator<<(std::ostream& os, const Graduate& obj)
 }
 
 
- //#define INHERITANCE
+
+//#define INHERITANCE
+#define ACCADEMY_DYNAMIC_CAST
 
 void main()
 {
@@ -159,6 +161,7 @@ void main()
 	grad.print();
 #endif // INHERITANCE
 	      // Polymorphism
+#ifdef ACCADEMY_DYNAMIC_CAST
 	Human* group[] =
 	{
 		new Student("Pinkman", "Jessy", 25, "Chemistry", "WW_220", 90, 95),
@@ -169,17 +172,18 @@ void main()
 		new Teacher("Enstein","Albert",143,"Astronomy",120)
 	};
 
-	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++) 
-	{ 
+	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++)
+	{
 		//group[i]->print();
 		//cout << *group[i] << endl;
 		cout << typeid(*group[i]).name() << endl;
 		if (typeid(*group[i]) == typeid(Student))cout << *dynamic_cast<Student*>(group[i]) << endl;
 		if (typeid(*group[i]) == typeid(Teacher))cout << *dynamic_cast<Teacher*>(group[i]) << endl;
 		if (typeid(*group[i]) == typeid(Graduate))cout << *dynamic_cast<Graduate*>(group[i]) << endl;
-		//
 		cout << delimetr << endl;
 	}
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++) { delete group[i]; }
+#endif // ACCADEMY_DYNAMIC_CAST
+
 
 }
