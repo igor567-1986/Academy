@@ -26,11 +26,12 @@ public:
 	}
 	virtual ~Human() { cout << "Hdestructor\t" << this << endl; }
 	     //Methods
-	virtual void print()const
+	virtual std::ostream& print(std::ostream& os)const
 	{
-		cout << last_name << " " << first_name << " " << age << "лет.\n";
+		return os<< last_name << " " << first_name << " " << age << "лет.\n";
 	}
 };
+std::ostream& operator<<(std::ostream& os, const Human& obj) {	return obj.print(os);}
 
 #define STUDENT_TAKE_PARAMETRS const std::string& speciality, const std::string& group, double rating, double attendance
 #define STUDENT_GIVE_PARAMETRS speciality,group,rating,attendance
@@ -62,10 +63,9 @@ public:
 	}
 	~Student() { cout << "SDestructor:\t" << endl; }
 	 //   methods
-	void print()const
+	std::ostream& print(std::ostream& os)const override
 	{
-		Human::print();
-		cout << speciality << " " << group << " " << rating << " " << attendance << endl;
+		return Human::print(os) << speciality << " " << group << " " << rating << " " << attendance << endl;
 	}
 };
 
@@ -92,10 +92,9 @@ public:
 	~Teacher() { cout << "TDestructor:\t" << endl; }
 
 	//  Methods
-	void print()const
+	std::ostream& print(std::ostream& os)const override
 	{
-		Human::print();
-		cout << speciality << " " << experiance << endl;
+		return Human::print(os) << speciality << " " << experiance << endl;
 	}
 };
 class Graduate :public Student
@@ -114,10 +113,9 @@ public:
 	~Graduate() { cout << "GDestructor:\t" << endl; }
 
 	     // Methods
-	void print()const
+	std::ostream&  print(std::ostream& os)const override
 	{
-		Student::print();
-		cout << "Тема дипломного проекта:"<<thesis_topic << endl;
+		return Student::print(os) << "Тема дипломного проекта:"<<thesis_topic << endl;
 	}
 };
 
@@ -152,7 +150,8 @@ void main()
 
 	for (int i = 0; i < sizeof(group) / sizeof(Human*); i++) 
 	{ 
-		group[i]->print();
+		cout << *group[i] << endl;
+		//group[i]->print();
 		cout << delimetr << endl;
 	}
 	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++) { delete group[i]; }
