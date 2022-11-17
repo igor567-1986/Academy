@@ -15,7 +15,7 @@ void main()
 	fout << "Hello Files" << endl;//3)Пишем в поток
 	fout.close();                //4)Закрываем поток
 
-	system("notepad File.txt");// Функция ыныеуь()запускает любая прогграму к которой есть в PATH Windows  
+	system("notepad File.txt");// Функция system()запускает любую прогграму к которой есть доступ в PATH Windows  
 #endif // WRITE_TO_FILE
    
 #ifdef READ_FROM_FILE

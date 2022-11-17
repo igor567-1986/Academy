@@ -1,5 +1,6 @@
 ﻿#include<iostream>
 #include<string>
+#include<fstream>
 
 using namespace std;
 
@@ -137,8 +138,37 @@ void main()
 	Graduate grad("Shreder", "Jessy", 25, "Chemistry", "WW_220", 90, 95, "Investigation of gas hydrates obtained from emulsions water / decan, water/ oil");
 	grad.print();
 #endif // INHERITANCE
+
+	std::ofstream fout;
+	fout.open("File.txt");//,std::ios::app);
+	fout << ("new Student(\"Pinkman\", \"Jessy\", 25, \"Chemistry\", \"WW_220\", 90, 95\),\n")
+		<< ("new Teacher(\"White\", \"Walter\", 50, \"Chemistry\", 20),\n")
+		<< ("new Graduate(\"Shreder\", \"Jessy\", 25, \"Chemistry\", \"WW_220\", 90, 95, \"Investigation of gas hydrates obtained from emulsions water / decan, water/ oil\"),\n")
+		<< ("new Student(\"Vercetti\", \"Tomas\", 30, \"Crminalistic\", \"Vice\", 90, 93),\n")
+		<< ("new Teacher(\"Diaz\", \"Ricardo\", 50, \"Weapon distribution\", 15),\n")
+		<< ("new Teacher(\"Enstein\", \"Albert\", 143, \"Astronomy\", 120)\n") << endl;
+	const int SIZE = 1024;
+	char buffer[SIZE] = {};
+	ifstream fin("File.txt");
+	if (fin.is_open())
+	{
+		while (!fin.eof())
+		{
+			//fin >> buffer;
+			fin.getline(buffer, SIZE);
+			cout << buffer << endl;
+		}
+		fin.close();
+	}
+	else
+	{
+		std::cerr << "Eror:file not found" << endl;
+	}
+
+
 	      // Polymorphism
-	Human* group[] =
+
+	/*Human* group[] =new buffer[SIZE];
 	{
 		new Student("Pinkman", "Jessy", 25, "Chemistry", "WW_220", 90, 95),
 		new Teacher("White", "Walter", 50, "Chemistry", 20),
@@ -154,6 +184,6 @@ void main()
 		//group[i]->print();
 		cout << delimetr << endl;
 	}
-	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++) { delete group[i]; }
+	for (int i = 0; i < sizeof(group) / sizeof(group[0]); i++) { delete group[i]; }*/
 
 }
