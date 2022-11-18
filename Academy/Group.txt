@@ -1,0 +1,6 @@
+class Student  :Pinkman Jessy               25 Chemistry           WW_220         90     95
+class Teacher  :White Walter                50 Chemistry                     20
+class Graduate :Shreder Jessy               25 Chemistry           WW_220         90     95 Investigation of gas hydrates obtained from emulsions water / decan, water/ oil
+class Student  :Vercetti Tomas              30 Crminalistic        Vice           90     93
+class Teacher  :Diaz Ricardo                50 Weapon distribution           15
+class Teacher  :Enstein Albert             143 Astronomy                    120

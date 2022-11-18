@@ -1,7 +1,0 @@
-new Student("Pinkman", "Jessy", 25, "Chemistry", "WW_220", 90, 95),
-new Teacher("White", "Walter", 50, "Chemistry", 20),
-new Graduate("Shreder", "Jessy", 25, "Chemistry", "WW_220", 90, 95, "Investigation of gas hydrates obtained from emulsions water / decan, water/ oil"),
-new Student("Vercetti", "Tomas", 30, "Crminalistic", "Vice", 90, 93),
-new Teacher("Diaz", "Ricardo", 50, "Weapon distribution", 15),
-new Teacher("Enstein", "Albert", 143, "Astronomy", 120)
-
