@@ -1,0 +1,52 @@
+{
+	hardware ethernet	00:19:99:b4:c2:ae;
+	fixed-address		192.168.100.21;
+}
+{
+	hardware ethernet	00:19:99:ae:a8:8e;
+	fixed-address		192.168.100.22;
+}
+{
+	hardware ethernet	00:19:99:b5:e9:9b;
+	fixed-address		192.168.100.23;
+}
+{
+	hardware ethernet	00:19:99:b4:a2:ed;
+	fixed-address		192.168.100.24;
+}
+{
+	hardware ethernet	00:19:99:ad:4f:51;
+	fixed-address		192.168.100.25;
+}
+{
+	hardware ethernet	00:19:99:dc:52:80;
+	fixed-address		192.168.100.26;
+}
+{
+	hardware ethernet	00:19:99:b4:a2:fb;
+	fixed-address		192.168.100.27;
+}
+{
+	hardware ethernet	00:19:99:b2:b3:e6;
+	fixed-address		192.168.100.28;
+}
+{
+	hardware ethernet	00:19:99:ae:a5:59;
+	fixed-address		192.168.100.29;
+}
+{
+	hardware ethernet	00:19:99:dc:52:77;
+	fixed-address		192.168.100.30;
+}
+{
+	hardware ethernet	00:19:99:ac:b8:11;
+	fixed-address		192.168.100.31;
+}
+{
+	hardware ethernet	00:19:99:b5:e9:4d;
+	fixed-address		192.168.100.32;
+}
+{
+	hardware ethernet	;
+	fixed-address		;
+}
