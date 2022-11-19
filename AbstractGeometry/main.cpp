@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include<Windows.h>
 using namespace std;
 
@@ -25,8 +25,8 @@ namespace Geometry
 		virtual void draw()const = 0;
 		virtual void info()const
 		{
-			cout << "Ïëîùàäü ôèãóðû:" << area() << endl;
-			cout << "Ïåðèìåòð ôèãóðû:" << perimetr() << endl;
+			cout << "ÐŸÐ»Ð¾Ñ‰Ð°Ð´ÑŒ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹:" << area() << endl;
+			cout << "ÐŸÐµÑ€Ð¸Ð¼ÐµÑ‚Ñ€ Ñ„Ð¸Ð³ÑƒÑ€Ñ‹:" << perimetr() << endl;
 			draw();
 		}
 	};
@@ -66,7 +66,7 @@ namespace Geometry
 		void info()const override
 		{
 			cout << typeid(*this).name() << endl;
-			cout << "Äëèíà ñòîðîíû êâàäðàòà:" << side << endl;
+			cout << "Ð”Ð»Ð¸Ð½Ð° ÑÑ‚Ð¾Ñ€Ð¾Ð½Ñ‹ ÐºÐ²Ð°Ð´Ñ€Ð°Ñ‚Ð°:" << side << endl;
 			Shape::info();
 		}
 	};
@@ -124,18 +124,18 @@ namespace Geometry
 				cout << endl;
 			}
 			SetConsoleTextAttribute(hConsole, Color::console_default);*/
-			//Ïîëó÷àåì îêíî êîíñîëè
+			//ÐŸÐ¾Ð»ÑƒÑ‡Ð°ÐµÐ¼ Ð¾ÐºÐ½Ð¾ ÐºÐ¾Ð½ÑÐ¾Ð»Ð¸
 			HWND hwnd = GetConsoleWindow();
-			//2) Ïîëó÷àåì êîíòåêñò óñòðîéñòâà äëÿ îêíà êîíñîëè
-			HDC hdc = GetDC(hwnd);//Ýòî òî ÷åì ìû áóäåì ðèñîâàòü
-			//3)Ñîçäàåì êàðàíäàø-ýòî òî ÷åì áóäåì ðèñîâàòü
+			//2) ÐŸÐ¾Ð»ÑƒÑ‡Ð°ÐµÐ¼ ÐºÐ¾Ð½Ñ‚ÐµÐºÑÑ‚ ÑƒÑÑ‚Ñ€Ð¾Ð¹ÑÑ‚Ð²Ð° Ð´Ð»Ñ Ð¾ÐºÐ½Ð° ÐºÐ¾Ð½ÑÐ¾Ð»Ð¸
+			HDC hdc = GetDC(hwnd);//Ð­Ñ‚Ð¾ Ñ‚Ð¾ Ñ‡ÐµÐ¼ Ð¼Ñ‹ Ð±ÑƒÐ´ÐµÐ¼ Ñ€Ð¸ÑÐ¾Ð²Ð°Ñ‚ÑŒ
+			//3)Ð¡Ð¾Ð·Ð´Ð°ÐµÐ¼ ÐºÐ°Ñ€Ð°Ð½Ð´Ð°Ñˆ-ÑÑ‚Ð¾ Ñ‚Ð¾ Ñ‡ÐµÐ¼ Ð±ÑƒÐ´ÐµÐ¼ Ñ€Ð¸ÑÐ¾Ð²Ð°Ñ‚ÑŒ
 			HPEN hpen = CreatePen(PS_SOLID, 5, color);
-			//4)Ñîçäàåì êèñòü.Êèñòü ðèñóåò çàëèâêó
+			//4)Ð¡Ð¾Ð·Ð´Ð°ÐµÐ¼ ÐºÐ¸ÑÑ‚ÑŒ.ÐšÐ¸ÑÑ‚ÑŒ Ñ€Ð¸ÑÑƒÐµÑ‚ Ð·Ð°Ð»Ð¸Ð²ÐºÑƒ
 			HBRUSH hBrush = CreateSolidBrush(color);
-			//5)Âûáèðàåì ÷åì è íà ÷åì ìû áóäåì ðèñîâàòü
+			//5)Ð’Ñ‹Ð±Ð¸Ñ€Ð°ÐµÐ¼ Ñ‡ÐµÐ¼ Ð¸ Ð½Ð° Ñ‡ÐµÐ¼ Ð¼Ñ‹ Ð±ÑƒÐ´ÐµÐ¼ Ñ€Ð¸ÑÐ¾Ð²Ð°Ñ‚ÑŒ
 			SelectObject(hdc, hpen);
 			SelectObject(hdc, hBrush);
-			//5) Ðèñóåì ïðÿìîóãîëüíèê
+			//5) Ð Ð¸ÑÑƒÐµÐ¼ Ð¿Ñ€ÑÐ¼Ð¾ÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸Ðº
 			::Rectangle(hdc, 100, 100, 500, 300);
 			DeleteObject(hpen);
 			ReleaseDC(hwnd, hdc);
@@ -143,8 +143,8 @@ namespace Geometry
 		void info()const override
 		{
 			cout << typeid(*this).name() << endl;
-			cout << "Øèðèíà  ïðÿìîóãîëüíèêà:" << width << endl;
-			cout << "Äëèíà  ïðÿìîóãîëüíèêà:" << width << endl;
+			cout << "Ð¨Ð¸Ñ€Ð¸Ð½Ð°  Ð¿Ñ€ÑÐ¼Ð¾ÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸ÐºÐ°:" << width << endl;
+			cout << "Ð”Ð»Ð¸Ð½Ð°  Ð¿Ñ€ÑÐ¼Ð¾ÑƒÐ³Ð¾Ð»ÑŒÐ½Ð¸ÐºÐ°:" << width << endl;
 			Shape::info();
 		}
 
