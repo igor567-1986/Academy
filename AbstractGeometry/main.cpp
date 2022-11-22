@@ -111,7 +111,7 @@ namespace Geometry
 		{
 			return (width + length) * 2;
 		}
-		void draw()const override
+		void draw()const override 
 		{
 		/*	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleTextAttribute(hConsole, color);
@@ -128,28 +128,126 @@ namespace Geometry
 			HWND hwnd = GetConsoleWindow();
 			//2) Получаем контекст устройства для окна консоли
 			HDC hdc = GetDC(hwnd);//Это то чем мы будем рисовать
-			//3)Создаем карандаш-это то чем будем рисовать
-			HPEN hpen = CreatePen(PS_SOLID, 5, color);
-			//4)Создаем кисть.Кисть рисует заливку
+			//3)Создаем карандаш-это то чем будем рисовать(карандаш рисует линии)
+			HPEN hPen = CreatePen(PS_SOLID, 5, color);
+			//4)Создаем кисть.Кисть рисует заливку в замкнутой сфере
 			HBRUSH hBrush = CreateSolidBrush(color);
 			//5)Выбираем чем и на чем мы будем рисовать
-			SelectObject(hdc, hpen);
+			SelectObject(hdc, hPen);
 			SelectObject(hdc, hBrush);
-			//5) Рисуем прямоугольник
-			::Rectangle(hdc, 100, 100, 500, 300);
-			DeleteObject(hpen);
+			//6) Рисуем прямоугольник
+			::Rectangle(hdc, 100, 200, 300, 400);
+			//удаляем карандаш
+			DeleteObject(hPen);
+			DeleteObject(hBrush);
+			//Освобождаем контекст устройства
 			ReleaseDC(hwnd, hdc);
 		}
 		void info()const override
 		{
 			cout << typeid(*this).name() << endl;
 			cout << "Ширина  прямоугольника:" << width << endl;
-			cout << "Длина  прямоугольника:" << width << endl;
+			cout << "Длина  прямоугольника:" << length << endl;
 			Shape::info();
 		}
 
 	};
+	class Circle :public Shape
+	{
+		double radius;
+	public:
+		double get_radius()const{return radius;	}
+		void set_radius(double radius)
+		{
+			if (radius < 5)radius = 5;
+			if (radius > 20)radius = 20;
+			this->radius = radius;
+		}
+		Circle(double radius, Color color) :Shape(color)
+		{
+			set_radius(radius);
+		}
+		~Circle() {};
+		double area()const override { return 3.14 * radius * radius; }
+		double perimetr()const override { return 2 * 3.14 * radius; }
+		void draw()const override
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HPEN hpen = CreatePen(PS_SOLID, 1, color);
+			HBRUSH hbrush = CreateSolidBrush(color);
+			SelectObject(hdc, hpen);
+			SelectObject(hdc, hbrush);
+			Ellipse(hdc, 310, 200, 410, 300);
+			DeleteObject(hpen);
+			DeleteObject(hbrush);
+			ReleaseDC(hwnd, hdc);
+		}
+		void info()const override
+		{
+			cout << typeid(*this).name() << endl;
+			cout << "радиус круга:" << radius << endl;
+			Shape::info();
+		}
+	};
+	class Triangle :public Shape
+	{
+		double a;
+		double b;
+		double c;
+	public:
+		double get_a()const { return a; }
+		double get_b()const { return b; }
+		double get_c()const { return c; }
+		void set_a(double a)
+		{
+			if (a < 2)a = 2;
+			if (a > 20)a = 20;
+			this->a = a;
+		}
+		void set_b(double b)
+		{
+			if (b < 2)b = 2;
+			if (b > 20)b = 20;
+			this->b = b;
+		}
+		void set_c(double c)
+		{
+			if (c < 2)c = 2;
+			if (c > 20)c = 20;
+			this->c = c;
+		}
+		
+		Triangle(double a, double b, double c,Color color):Shape(color)
+		{
+			set_a(a);
+			set_b(b);
+			set_c(c);
+		}
+		~Triangle() {};
+		double area()const override
+		{
+			double p = (a + b + c) / 2;
+			return sqrt(p*(p - a)*(p - b)*(p - c));
+		}
+		double perimetr()const override { return a + b + c; }
+		void draw()const override
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HPEN hpen = CreatePen(PS_SOLID, 1, color);
+			HBRUSH hbrush = CreateSolidBrush(color);
+			SelectObject(hdc, hpen);
+			SelectObject(hdc, hbrush);
+			int POINT[] = new int{2,3};
+			Polygon(hdc,POINT,3);
+			DeleteObject(hpen);
+			DeleteObject(hbrush);
+			ReleaseDC(hwnd, hdc);
+		}
+	};
 }
+
 
 void main()
 {
@@ -160,4 +258,7 @@ void main()
 
 	Geometry::Rectangle rect(15, 7,Geometry::Color::console_yellow);
 	rect.info();
+
+	Geometry::Circle cir(5.3, Geometry::Color::console_blue);
+	cir.info();
 }
