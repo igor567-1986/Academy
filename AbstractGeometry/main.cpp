@@ -340,6 +340,139 @@ namespace Geometry
 			Triangle::info();
 		}
 	};
+	class IsoscelesTriangle :public Triangle
+	{
+		double side;
+		double footing;
+	public:
+		double get_side()const { return side; }
+		double get_footing()const { return footing; }
+		void set_footing(double footing)
+		{
+			if (footing < 20)footing = 20;
+			if (footing > 400)footing = 400;
+			this->footing = footing;
+		}
+		void set_side(double side)
+		{
+			if (side < footing / 2)cout << "Eror:Такой треугольник не существует." << endl;
+			if (side < 20)side = 20;
+			if (side > 300)side = 300;
+			this->side = side;
+		}
+		IsoscelesTriangle(double side, double footing, unsigned int start_x, unsigned int start_y, unsigned int line_widht, Color color)
+			:Triangle(start_x, start_y, line_widht, color)
+		{
+			set_side(side);
+			set_footing(footing);
+		}
+		~IsoscelesTriangle(){}
+		double get_height()const override
+		{
+			return sqrt((side * side) - (footing * footing) / 4);
+		}
+		double get_area()const override
+		{
+			return get_height() * footing / 2;
+		}
+		double get_perimetr()const override
+		{
+			return side * 2 + footing;
+		}
+		void draw()const override
+		{
+			if (side <footing/2)return ;
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HPEN hPen = CreatePen(PS_SOLID, line_widht, color);
+			HBRUSH hBrush = CreateSolidBrush(color);
+			SelectObject(hdc,hPen );
+			SelectObject(hdc, hBrush);
+			POINT vert[] =
+			{
+				{start_x,start_y + side},
+				{start_x + footing,start_y + side},
+				{start_x + footing / 2,start_y + side - get_height()}
+			};
+			Polygon(hdc, vert, 3);
+			DeleteObject(hPen);
+			DeleteObject(hBrush);
+			ReleaseDC(hwnd, hdc);
+		}
+		void info()const
+		{
+			cout << typeid(*this).name() << endl;
+			cout << "Side:" << side << endl;
+			cout << "Footing" << footing << endl;
+			Triangle::info();
+		}
+	};
+	class RightTriangle :public Triangle
+	{
+		double cathetA;
+		double cathetB;
+		double hypotenuse;
+	public:
+		double get_cathetA()const    { return cathetA; }
+		double get_cathetB()const    { return cathetB; }
+		double get_hypotenuse()const { return hypotenuse; }
+		void set_cathetA(double cathetA)
+		{
+			if (cathetA < 20)cathetA = 20;
+			if (cathetA < 400)cathetA = 400;
+			this->cathetA = cathetA;
+		}
+		void set_cathetB(double cathetB)
+		{
+			if (cathetB < 20)cathetB = 20;
+			if (cathetB < 400)cathetB = 400;
+			this->cathetB = cathetB;
+		}
+		void set_hypotenuse()
+		{
+			double hypotenuse;
+			hypotenuse = sqrt((get_cathetA() * get_cathetA()) + (get_cathetB() + get_cathetB()));
+			this->hypotenuse = hypotenuse;
+		}
+		RightTriangle(double cathetA, double cathetB, unsigned int start_x, unsigned int start_y, unsigned int line_widht, Color color)
+			:Triangle(start_x, start_y, line_widht, color)
+		{
+			set_cathetA(cathetA);
+			set_cathetB(cathetB);
+			set_hypotenuse();
+		}
+		~RightTriangle(){}
+		double get_height()const override   { return cathetA * cathetB / hypotenuse; }
+		double get_area()const override	    { return(hypotenuse * get_height()) / 2; }
+		double get_perimetr()const override	{ return cathetA + cathetB + hypotenuse; }
+		void draw()const override
+		{
+			HWND hwnd = GetConsoleWindow();
+			HDC hdc = GetDC(hwnd);
+			HPEN hPen = CreatePen(PS_SOLID, line_widht, color);
+			HBRUSH hBrush = CreateSolidBrush(color);
+			SelectObject(hdc,hPen);
+			SelectObject(hdc,hBrush);
+			POINT vert[] =
+			{
+				{start_x,start_y+cathetA},
+				{start_x+cathetB,start_x+cathetA},
+				{start_x,start_y+cathetA-get_height()}
+			};
+			Polygon(hdc, vert, 3);
+			DeleteObject(hPen);
+			DeleteObject(hBrush);
+			ReleaseDC(hwnd, hdc);
+		}
+		void info()const
+		{
+			cout << typeid(*this).name() << endl;
+			cout << "cathetA:" << cathetA << endl;
+			cout << "cathetB:" << cathetB << endl;
+			cout << "hypotenuse:" << hypotenuse << endl;
+			Triangle::info();
+		}
+	};
 }
 
 
@@ -356,6 +489,12 @@ void main()
 	Geometry::Circle cir(100,500,100,11, Geometry::Color::yellow);
 	cir.info();
 
-	Geometry::EquilateralTriangle e_try(70, 300, 300, 1, Geometry::Color::green);
+	Geometry::EquilateralTriangle e_try(70, 300, 300, 2, Geometry::Color::green);
 	e_try.info();
+
+	Geometry::IsoscelesTriangle i_try(150, 240, 400, 400, 2, Geometry::Color::white);
+	i_try.info();
+
+	Geometry::RightTriangle r_try(180, 150, 350, 450, 2, Geometry::Color::red);
+	r_try.info();
 }
